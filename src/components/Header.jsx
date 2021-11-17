@@ -10,7 +10,7 @@ function HeaderComponent() {
       <Menu theme="dark" mode="horizontal">
         <Menu.Item key="1">
           {" "}
-          <Link to={"/"}>Trang chủ</Link>
+          <Link to={"/my-app"}>Trang chủ</Link>
         </Menu.Item>
         <Menu.Item key="2">
           <Link to={"/product"}>Sản phẩm</Link>
