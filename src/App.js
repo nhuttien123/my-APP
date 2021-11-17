@@ -20,7 +20,7 @@ function App() {
           style={{ padding: 24, minHeight: 380 }}
         >
           <Routes>
-            <Route path="/" element={<HomeSite />} />
+            <Route path="/my-app" element={<HomeSite />} />
             <Route path="/product" element={<ProductSite />} />
             <Route path="/cart" element={<CartSite />} />
             <Route path="*" element={<NotFound />} />
