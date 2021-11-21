@@ -9,13 +9,9 @@ function HeaderComponent() {
       <div className="logo" />
       <Menu theme="dark" mode="horizontal">
         <Menu.Item key="1">
-          {" "}
-          <Link to={"/"}>Trang chủ</Link>
+          <Link to={"/"}>Sản phẩm</Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Link to={"/product"}>Sản phẩm</Link>
-        </Menu.Item>
-        <Menu.Item key="3">
           <Link to={"/cart"}>Giỏ hàng</Link>
         </Menu.Item>
       </Menu>
