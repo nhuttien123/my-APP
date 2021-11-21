@@ -4,16 +4,16 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <Router basename={"https://nhuttien123.github.io/my-app/"}>
+  <HashRouter basename={"https://nhuttien123.github.io/my-app/"}>
     <React.StrictMode>
       <Provider store={store}>
         <App />
       </Provider>
     </React.StrictMode>
-  </Router>,
+  </HashRouter>,
   document.getElementById("root")
 );
 
