@@ -23,7 +23,7 @@ function Register() {
         toast.error("Username already exist !");
       }
     }
-  }, [response, history, dispatch]);
+  }, [response, history]);
 
   const onFinish = (values) => {
     if (values.password != values.re_password) {
@@ -36,8 +36,8 @@ function Register() {
             Username: values.username,
             Password: values.re_password,
             Email: values.email,
-            Phone: "",
-            Avatar: "",
+            Phone: "NULL",
+            Avatar: "NULL",
           })
         )
       );

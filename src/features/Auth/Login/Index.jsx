@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../../redux/Slice/Login";
 import { toast } from "react-toastify";
-
+import { unwrapResult } from "@reduxjs/toolkit";
 function Login() {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.userLogin);
@@ -29,14 +29,14 @@ function Login() {
   }, [status, data.response, dispatch]);
 
   const onFinish = (values) => {
-    console.log(values);
-    dispatch(
-      getUser({
-        Username: values.username,
-        Password: values.password,
-      })
+    unwrapResult(
+      dispatch(
+        getUser({
+          Username: values.username,
+          Password: values.password,
+        })
+      )
     );
-
     if (values.remember == true) {
       const token = {
         name: values.username,
