@@ -17,7 +17,7 @@ function Register() {
       if (typeof response === "object") {
         toast.success("Register success !");
         setTimeout(() => {
-          history("/");
+          history("/my-app/");
         }, 1500);
       } else if (typeof response === "string") {
         toast.error("Username already exist !");

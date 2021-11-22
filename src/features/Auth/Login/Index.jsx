@@ -18,7 +18,7 @@ function Login() {
         localStorage.setItem("accessKey", [sucess.useName]);
         toast.success("Login success !");
         setTimeout(() => {
-          window.location.replace("/");
+          window.location.replace("/my-app/");
         }, 1500);
       } else if (status === "wrong-pass") {
         toast.error("Password incorrect");
@@ -89,7 +89,7 @@ function Login() {
                 Submit
               </Button>
             )}
-            <Link to="/register" style={{ marginLeft: "1rem" }}>
+            <Link to="/my-app/register" style={{ marginLeft: "1rem" }}>
               Register
             </Link>
           </Form.Item>
