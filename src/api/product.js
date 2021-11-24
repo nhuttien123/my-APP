@@ -1,9 +1,20 @@
 import axios from "axios";
-import { URL } from "./BaseUrl";
 
 const productApi = {
-  getProduct: async () => {
-    return await axios.get(`${URL}/products`).then((res) => res.data);
+  getProduct: async ({ name, page }) => {
+    if (name == undefined) {
+      return await axios
+        .get(
+          `https://619b19fb27827600174453c2.mockapi.io/products?filter=&page=${page}&limit=6`
+        )
+        .then((res) => res.data);
+    } else {
+      return await axios
+        .get(
+          `https://619b19fb27827600174453c2.mockapi.io/products?filter=${name}&page=${page}&limit=6`
+        )
+        .then((res) => res.data);
+    }
   },
 };
 
