@@ -1,5 +1,5 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { getProduct } from "../../redux/Slice/Product";
@@ -14,38 +14,48 @@ function ProductSite({ addCart }, type) {
   const { data, loading } = useSelector((state) => state.products);
   const urlSearchParams = new URLSearchParams(window.location.search);
   let myParam = urlSearchParams.get("page");
-  const myRef = useRef();
   const [value, setValue] = React.useState(1);
-  const [key, setKey] = useState();
+  const [key, setKey] = useState({
+    Key: "",
+    Page: 1,
+  });
 
   useEffect(() => {
     if (myParam == null) {
-      unwrapResult(dispatch(getProduct({ name: key, page: 1 })));
+      unwrapResult(dispatch(getProduct({ name: key.Key, page: key.Page })));
     } else {
-      unwrapResult(dispatch(getProduct({ name: key, page: Number(myParam) })));
+      unwrapResult(dispatch(getProduct({ name: key.Key, page: key.Page })));
     }
   }, [dispatch, myParam, key]);
 
   const onNext = () => {
     if (myParam) {
       history(`/my-app?page=${Number(myParam) + 1}`);
-      unwrapResult(
-        dispatch(getProduct({ name: key, page: Number(myParam) + 1 }))
-      );
+      setKey({
+        ...key,
+        Page: Number(myParam) + 1,
+      });
     } else {
       history(`/my-app?page=2`);
-      unwrapResult(dispatch(getProduct({ name: key, page: 2 })));
+      setKey({
+        ...key,
+        Page: 2,
+      });
     }
   };
 
   const onPrev = () => {
     history(`/my-app?page=${Number(myParam) - 1}`);
-    unwrapResult(
-      dispatch(getProduct({ name: key, page: Number(myParam) - 1 }))
-    );
+    setKey({
+      ...key,
+      Page: Number(myParam) - 1,
+    });
     if (myParam <= 2) {
       history("/my-app");
-      unwrapResult(dispatch(getProduct({ name: key, page: 1 })));
+      setKey({
+        ...key,
+        Page: 1,
+      });
     }
   };
 
@@ -55,8 +65,19 @@ function ProductSite({ addCart }, type) {
 
   const filter = (key) => {
     history("/my-app/");
-    unwrapResult(dispatch(getProduct({ name: key, page: 1 })));
-    setKey(key);
+    setKey({
+      Page: 1,
+      Key: key,
+    });
+  };
+
+  const cancelFilter = () => {
+    history("/my-app/");
+    setKey({
+      Page: 1,
+      Key: "",
+    });
+    setValue("");
   };
 
   return (
@@ -75,6 +96,9 @@ function ProductSite({ addCart }, type) {
             <Radio value={"dog"} onClick={() => filter("dog")}>
               Dog
             </Radio>
+            <Button onClick={cancelFilter} style={{ marginTop: "1rem" }}>
+              Cancel Filter
+            </Button>
           </Radio.Group>
         </Col>
         <Col xl={20}>

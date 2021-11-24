@@ -1,10 +1,9 @@
 import { Col, Card } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import React from "react";
-import { useSelector } from "react-redux";
 function ProductList({ data, addCart }) {
   const { Meta } = Card;
-  const { loading } = useSelector((state) => state.products);
+
   return (
     <>
       <Col xl={8} lg={8} md={12} sm={12} xs={24}>
