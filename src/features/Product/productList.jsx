@@ -1,6 +1,8 @@
 import { Col, Card } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import React from "react";
+import { Link } from "react-router-dom";
+
 function ProductList({ data, addCart }) {
   const { Meta } = Card;
 
@@ -12,16 +14,20 @@ function ProductList({ data, addCart }) {
             style={{ width: "100%" }}
             hoverable
             cover={
-              <img
-                alt="example"
-                src={data.images}
-                style={{ width: "100%", height: "16rem" }}
-              />
+              <Link to={"/product/" + data.id}>
+                <img
+                  alt="example"
+                  src={data.images}
+                  style={{ width: "100%", height: "16rem" }}
+                />
+              </Link>
             }
             actions={[
               <ShoppingCartOutlined
                 key="setting"
-                onClick={() => addCart(data.id)}
+                onClick={() =>
+                  addCart(data.id, data.price, data.images, data.name)
+                }
               />,
             ]}
           >

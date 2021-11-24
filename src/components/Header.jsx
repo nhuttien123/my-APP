@@ -12,7 +12,7 @@ function HeaderComponent({ count }) {
   const logout = () => {
     localStorage.removeItem("accessKey");
     sessionStorage.removeItem("cartItem");
-    window.location.replace("/my-app/");
+    window.location.replace("/my-app/login");
   };
   const menu = (
     <Menu>

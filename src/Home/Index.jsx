@@ -10,6 +10,8 @@ import NotFound from "../components/NotFound.jsx";
 import Register from "../features/Auth/Register/Index.jsx";
 import ProductSite from "../features/Product/Index.jsx";
 import CartSite from "../features/Cart/Index.jsx";
+import Detail from "../features/ProductDetail/Index.jsx";
+import HomePage from "../features/Auth/Index.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function Home(props) {
@@ -33,11 +35,13 @@ function Home(props) {
     }
   };
 
-  const addCart = (id, price) => {
+  const addCart = (id, price, image, name) => {
     const setCartItem = {
       idItem: id,
       quantity: 1,
       price: price,
+      image: image,
+      name: name,
     };
 
     if (cartItem != null) {
@@ -96,7 +100,8 @@ function Home(props) {
       <>
         <ToastContainer position={"top-center"} />
         <Routes>
-          <Route path="/my-app/" element={<Login />} />
+          <Route path="/my-app/" element={<HomePage />} />
+          <Route path="/my-app/login" element={<Login />} />
           <Route path="/my-app/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -128,6 +133,10 @@ function Home(props) {
                     minus={minus}
                   />
                 }
+              />
+              <Route
+                path="/product/:id"
+                element={<Detail addCart={addCart} />}
               />
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -1,6 +1,6 @@
+/* eslint-disable eqeqeq */
 import { unwrapResult } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import { getProduct } from "../../redux/Slice/Product";
 import { Row, Spin, Button, Col, Radio } from "antd";
@@ -10,73 +10,72 @@ import ProductList from "./productList";
 function ProductSite({ addCart }, type) {
   const dispatch = useDispatch();
   const history = useNavigate();
-
   const { data, loading } = useSelector((state) => state.products);
   const urlSearchParams = new URLSearchParams(window.location.search);
-  let myParam = urlSearchParams.get("page");
-
-  if (!myParam) {
-    myParam = 1;
+  let pageParam = urlSearchParams.get("page");
+  let keyParam = urlSearchParams.get("key");
+  if (!pageParam) {
+    pageParam = 1;
   }
+  const pathName = window.location.pathname;
+
   const [value, setValue] = React.useState(1);
   const [key, setKey] = useState({
-    Key: "",
-    Page: Number(myParam),
+    Key: keyParam,
+    Page: pageParam,
   });
 
   useEffect(() => {
-    if (!myParam) {
-      unwrapResult(dispatch(getProduct({ name: key.Key, page: key.Page })));
-    } else {
-      unwrapResult(dispatch(getProduct({ name: key.Key, page: key.Page })));
-    }
-  }, [dispatch, myParam, key]);
+    unwrapResult(dispatch(getProduct({ name: key.Key, page: key.Page })));
+  }, [dispatch, key]);
 
   const onNext = () => {
-    if (myParam) {
-      history(`/my-app?page=${Number(myParam) + 1}`);
+    if (keyParam) {
+      history(`${pathName}?key=${keyParam}&page=${Number(pageParam) + 1}`);
       setKey({
         ...key,
-        Page: Number(myParam) + 1,
+        Page: Number(pageParam) + 1,
       });
     } else {
-      history(`/my-app?page=2`);
+      history(`${pathName}?page=${Number(pageParam) + 1}`);
       setKey({
         ...key,
-        Page: 2,
+        Page: Number(pageParam) + 1,
       });
     }
   };
 
   const onPrev = () => {
-    history(`/my-app?page=${Number(myParam) - 1}`);
-    setKey({
-      ...key,
-      Page: Number(myParam) - 1,
-    });
-    if (myParam <= 2) {
-      history("/my-app");
+    if (key) {
+      history(`${pathName}?key=${keyParam}&page=${Number(pageParam) - 1}`);
       setKey({
         ...key,
-        Page: 1,
+        Page: Number(pageParam) - 1,
+      });
+    } else {
+      history(`${pathName}?page=${Number(pageParam) - 1}`);
+      setKey({
+        ...key,
+        Page: Number(pageParam) - 1,
       });
     }
   };
 
   const onChange = (e) => {
+    history({
+      pathname: pathName,
+      search: "?" + new URLSearchParams({ key: e.target.value }).toString(),
+    });
+    setKey({
+      Page: 1,
+      Key: e.target.value,
+    });
+
     setValue(e.target.value);
   };
 
-  const filter = (key) => {
-    history("/my-app/");
-    setKey({
-      Page: 1,
-      Key: key,
-    });
-  };
-
   const cancelFilter = () => {
-    history("/my-app/");
+    history(pathName);
     setKey({
       Page: 1,
       Key: "",
@@ -94,12 +93,8 @@ function ProductSite({ addCart }, type) {
             value={value}
             style={{ position: "sticky", top: 50 }}
           >
-            <Radio value={"cat"} onClick={() => filter("cat")}>
-              Cat
-            </Radio>
-            <Radio value={"dog"} onClick={() => filter("dog")}>
-              Dog
-            </Radio>
+            <Radio value={"cat"}>Cat</Radio>
+            <Radio value={"dog"}>Dog</Radio>
             <Button onClick={cancelFilter} style={{ marginTop: "1rem" }}>
               Cancel Filter
             </Button>
@@ -114,7 +109,7 @@ function ProductSite({ addCart }, type) {
               marginBottom: "1rem",
             }}
           >
-            {myParam == 1 ? (
+            {pageParam == 1 ? (
               <Button onClick={onPrev} disabled>
                 Prev
               </Button>
