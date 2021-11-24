@@ -114,7 +114,7 @@ function ProductSite({ addCart }, type) {
               marginBottom: "1rem",
             }}
           >
-            {!myParam ? (
+            {myParam == 1 ? (
               <Button onClick={onPrev} disabled>
                 Prev
               </Button>
