@@ -25,7 +25,7 @@ function ProductSite({ addCart }, type) {
   });
 
   useEffect(() => {
-    if (myParam == null) {
+    if (!myParam) {
       unwrapResult(dispatch(getProduct({ name: key.Key, page: key.Page })));
     } else {
       unwrapResult(dispatch(getProduct({ name: key.Key, page: key.Page })));
@@ -121,13 +121,22 @@ function ProductSite({ addCart }, type) {
             ) : (
               <Button onClick={onPrev}>Prev</Button>
             )}
-
-            <Button onClick={onNext}>Next</Button>
+            {(data || []).length == 0 ? (
+              <Button disabled>Next</Button>
+            ) : (
+              <Button onClick={onNext}>Next</Button>
+            )}
           </div>
           <Row gutter={[16, 16]}>
-            {(data || []).map((e) => (
-              <ProductList data={e} key={e.id} addCart={addCart} />
-            ))}
+            {(data || []).length == 0 ? (
+              <div style={{ margin: "0 auto", marginTop: "3rem" }}>
+                <h1>End page</h1>
+              </div>
+            ) : (
+              (data || []).map((e) => (
+                <ProductList data={e} key={e.id} addCart={addCart} />
+              ))
+            )}
           </Row>
         </Col>
       </Row>
