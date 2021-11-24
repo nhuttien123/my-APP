@@ -14,10 +14,14 @@ function ProductSite({ addCart }, type) {
   const { data, loading } = useSelector((state) => state.products);
   const urlSearchParams = new URLSearchParams(window.location.search);
   let myParam = urlSearchParams.get("page");
+
+  if (!myParam) {
+    myParam = 1;
+  }
   const [value, setValue] = React.useState(1);
   const [key, setKey] = useState({
     Key: "",
-    Page: 1,
+    Page: Number(myParam),
   });
 
   useEffect(() => {
