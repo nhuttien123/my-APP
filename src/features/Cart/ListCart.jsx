@@ -31,7 +31,6 @@ function ListCart(props) {
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <a>Invite {record.id}</a>
           {record.quantity == 1 ? (
             <Button disabled>-</Button>
           ) : (
@@ -53,7 +52,6 @@ function ListCart(props) {
       name: cartItem.name,
       quantity: cartItem.quantity,
       price: cartItem.quantity * cartItem.price.toLocaleString("vi-vn") + "$",
-      tags: ["nice", "developer"],
     },
   ];
 

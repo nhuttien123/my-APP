@@ -32,33 +32,25 @@ function ProductSite({ addCart }, type) {
   const onNext = () => {
     if (keyParam) {
       history(`${pathName}?key=${keyParam}&page=${Number(pageParam) + 1}`);
-      setKey({
-        ...key,
-        Page: Number(pageParam) + 1,
-      });
     } else {
       history(`${pathName}?page=${Number(pageParam) + 1}`);
-      setKey({
-        ...key,
-        Page: Number(pageParam) + 1,
-      });
     }
+    setKey({
+      ...key,
+      Page: Number(pageParam) + 1,
+    });
   };
 
   const onPrev = () => {
-    if (key) {
+    if (keyParam) {
       history(`${pathName}?key=${keyParam}&page=${Number(pageParam) - 1}`);
-      setKey({
-        ...key,
-        Page: Number(pageParam) - 1,
-      });
     } else {
       history(`${pathName}?page=${Number(pageParam) - 1}`);
-      setKey({
-        ...key,
-        Page: Number(pageParam) - 1,
-      });
     }
+    setKey({
+      ...key,
+      Page: Number(pageParam) - 1,
+    });
   };
 
   const onChange = (e) => {
