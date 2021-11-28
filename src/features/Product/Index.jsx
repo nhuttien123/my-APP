@@ -67,6 +67,7 @@ function ProductSite({ addCart }) {
       Page: 1,
       Key: e.target.value,
     });
+    setValue(e.target.value);
   };
 
   const cancelFilter = () => {
