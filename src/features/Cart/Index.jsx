@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import ListCart from "./ListCart";
 
-function CartSite({ removeCartItem, plus, minus }) {
+function CartSite({ removeCartItem, plus, minus, change }) {
   const [item, setItem] = useState([]);
 
   useEffect(() => {
@@ -31,6 +31,11 @@ function CartSite({ removeCartItem, plus, minus }) {
     displayCart();
   };
 
+  const childChange = (id, value) => {
+    change(id, value);
+    displayCart();
+  };
+
   return (
     <>
       {(item || []).length == 0 || !sessionStorage.cartItem ? (
@@ -42,8 +47,9 @@ function CartSite({ removeCartItem, plus, minus }) {
             remove={childRemove}
             plus={childPlus}
             minus={childMinus}
+            change={childChange}
             data={e}
-            key={e.id}
+            key={e.idItem}
           >
             {" "}
           </ListCart>

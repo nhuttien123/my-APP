@@ -12,7 +12,7 @@ import ProductSite from "../features/Product/Index.jsx";
 import CartSite from "../features/Cart/Index.jsx";
 import Detail from "../features/ProductDetail/Index.jsx";
 import HomePage from "../features/Auth/Index.jsx";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function Home(props) {
   const { Content } = Layout;
@@ -95,6 +95,21 @@ function Home(props) {
     });
   };
 
+  const handleInput = (id, value) => {
+    console.log(typeof value);
+    (cartItem || []).map((e) => {
+      if (e.idItem == id) {
+        if (Number(value) < 1) {
+          toast.warn("error");
+        } else {
+          e.quantity = value;
+          sessionStorage.setItem("cartItem", JSON.stringify(cartItem));
+          getTotalCount();
+        }
+      }
+    });
+  };
+
   if (!token) {
     return (
       <>
@@ -131,6 +146,7 @@ function Home(props) {
                     removeCartItem={removeCartItem}
                     plus={plus}
                     minus={minus}
+                    change={handleInput}
                   />
                 }
               />

@@ -6,35 +6,44 @@ import { getProduct } from "../../redux/Slice/Product";
 import { Row, Spin, Button, Col, Radio } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import ProductList from "./productList";
-
-function ProductSite({ addCart }, type) {
+import qs from "query-string";
+function ProductSite({ addCart }) {
   const dispatch = useDispatch();
   const history = useNavigate();
+
   const { data, loading } = useSelector((state) => state.products);
   const urlSearchParams = new URLSearchParams(window.location.search);
   let pageParam = urlSearchParams.get("page");
+  let sortParam = urlSearchParams.get("order");
   let keyParam = urlSearchParams.get("key");
+  const queryParams = qs.parse(window.location.search);
   if (!pageParam) {
     pageParam = 1;
   }
-  const pathName = window.location.pathname;
+  let pathName = window.location.pathname;
 
   const [value, setValue] = React.useState(1);
   const [key, setKey] = useState({
     Key: keyParam,
     Page: pageParam,
+    Sort: sortParam,
   });
 
   useEffect(() => {
-    unwrapResult(dispatch(getProduct({ name: key.Key, page: key.Page })));
+    unwrapResult(
+      dispatch(
+        getProduct({
+          name: key.Key,
+          page: key.Page,
+          sort: key.Sort,
+        })
+      )
+    );
   }, [dispatch, key]);
 
   const onNext = () => {
-    if (keyParam) {
-      history(`${pathName}?key=${keyParam}&page=${Number(pageParam) + 1}`);
-    } else {
-      history(`${pathName}?page=${Number(pageParam) + 1}`);
-    }
+    const newQueries = { ...queryParams, page: Number(pageParam) + 1 };
+    history({ search: qs.stringify(newQueries) });
     setKey({
       ...key,
       Page: Number(pageParam) + 1,
@@ -42,11 +51,8 @@ function ProductSite({ addCart }, type) {
   };
 
   const onPrev = () => {
-    if (keyParam) {
-      history(`${pathName}?key=${keyParam}&page=${Number(pageParam) - 1}`);
-    } else {
-      history(`${pathName}?page=${Number(pageParam) - 1}`);
-    }
+    const newQueries = { ...queryParams, page: Number(pageParam) - 1 };
+    history({ search: qs.stringify(newQueries) });
     setKey({
       ...key,
       Page: Number(pageParam) - 1,
@@ -54,25 +60,40 @@ function ProductSite({ addCart }, type) {
   };
 
   const onChange = (e) => {
-    history({
-      pathname: pathName,
-      search: "?" + new URLSearchParams({ key: e.target.value }).toString(),
-    });
+    const newQueries = { ...queryParams, key: e.target.value, page: 1 };
+    history({ search: qs.stringify(newQueries) });
     setKey({
+      ...key,
       Page: 1,
       Key: e.target.value,
     });
-
-    setValue(e.target.value);
   };
 
   const cancelFilter = () => {
-    history(pathName);
-    setKey({
-      Page: 1,
-      Key: "",
-    });
+    if (sortParam) {
+      history(`${pathName}?order=${sortParam}`);
+      setKey({
+        Page: 1,
+        Sort: sortParam,
+      });
+    } else {
+      history(pathName);
+      setKey({
+        Page: 1,
+        Key: "",
+      });
+    }
     setValue("");
+  };
+
+  const Sort = (value) => {
+    const newQueries = { ...queryParams, order: value };
+    history({ search: qs.stringify(newQueries) });
+    setKey({
+      ...key,
+      Page: pageParam,
+      Sort: value,
+    });
   };
 
   return (
@@ -80,17 +101,17 @@ function ProductSite({ addCart }, type) {
       <Row gutter={[16, 26]}>
         <Col xl={4} style={{ margin: "0 auto", position: "relative" }}>
           <h1>Filter</h1>
-          <Radio.Group
-            onChange={onChange}
-            value={value}
-            style={{ position: "sticky", top: 50 }}
-          >
+          <Radio.Group onChange={onChange} value={value}>
             <Radio value={"cat"}>Cat</Radio>
             <Radio value={"dog"}>Dog</Radio>
-            <Button onClick={cancelFilter} style={{ marginTop: "1rem" }}>
-              Cancel Filter
-            </Button>
+
+            <Radio value={"small"}>0 - 30.000$</Radio>
+            <Radio value={"medium"}>30.000$ - 60.000$</Radio>
+            <Radio value={"high"}>60.000$ - 100.000$</Radio>
           </Radio.Group>
+          <Button onClick={cancelFilter} style={{ marginTop: "1rem" }}>
+            Cancel Filter
+          </Button>
         </Col>
         <Col xl={20}>
           <div
@@ -113,6 +134,31 @@ function ProductSite({ addCart }, type) {
             ) : (
               <Button onClick={onNext}>Next</Button>
             )}
+          </div>
+          <div>
+            <h3>
+              Sort by:{" "}
+              <span
+                style={{
+                  cursor: "pointer",
+                  paddingLeft: "1rem",
+                  textDecoration: "underline",
+                }}
+                onClick={() => Sort("asc")}
+              >
+                Low to high
+              </span>
+              <span
+                style={{
+                  cursor: "pointer",
+                  paddingLeft: "1rem",
+                  textDecoration: "underline",
+                }}
+                onClick={() => Sort("desc")}
+              >
+                High to low
+              </span>
+            </h3>
           </div>
           <Row gutter={[16, 16]}>
             {(data || []).length == 0 ? (

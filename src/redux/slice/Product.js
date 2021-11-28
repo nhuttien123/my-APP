@@ -3,8 +3,8 @@ import productApi from "../../api/product";
 
 export const getProduct = createAsyncThunk(
   "product/getProduct",
-  async ({ name, page }) => {
-    return await productApi.getProduct({ name, page });
+  async ({ name, page, sort }) => {
+    return await productApi.getProduct({ name, page, sort });
   }
 );
 

@@ -1,12 +1,9 @@
-import { Table, Tag, Space, Button } from "antd";
-import React from "react";
-import {
-  PlusSquareOutlined,
-  MinusSquareOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { Table, Space, Button, Input } from "antd";
+import React, { useRef } from "react";
+import { DeleteOutlined } from "@ant-design/icons";
 function ListCart(props) {
   const cartItem = props.data;
+  const myRef = useRef();
 
   const columns = [
     {
@@ -31,7 +28,7 @@ function ListCart(props) {
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          {record.quantity == 1 ? (
+          {cartItem.quantity < 1 ? (
             <Button disabled>-</Button>
           ) : (
             <Button onClick={() => props.minus(record.id)}>-</Button>
@@ -47,10 +44,23 @@ function ListCart(props) {
 
   const data = [
     {
-      key: cartItem.id,
+      key: cartItem.idItem,
       id: cartItem.idItem,
       name: cartItem.name,
-      quantity: cartItem.quantity,
+      quantity: (
+        <>
+          <p> {cartItem.quantity}</p>
+          Update quatity:
+          <input
+            type="number"
+            min="1"
+            defaultValue={cartItem.quantity}
+            ref={myRef}
+            onChange={() => props.change(cartItem.idItem, myRef.current.value)}
+            style={{ marginLeft: "1rem" }}
+          />
+        </>
+      ),
       price: cartItem.quantity * cartItem.price.toLocaleString("vi-vn") + "$",
     },
   ];
