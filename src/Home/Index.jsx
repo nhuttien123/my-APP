@@ -96,13 +96,12 @@ function Home(props) {
   };
 
   const handleInput = (id, value) => {
-    console.log(typeof value);
     (cartItem || []).map((e) => {
       if (e.idItem == id) {
         if (Number(value) < 1) {
           toast.warn("error");
         } else {
-          e.quantity = value;
+          e.quantity = Number(value);
           sessionStorage.setItem("cartItem", JSON.stringify(cartItem));
           getTotalCount();
         }
