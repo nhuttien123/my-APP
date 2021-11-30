@@ -146,10 +146,7 @@ function Home(props) {
                   />
                 }
               />
-              <Route
-                path="/product/:id"
-                element={<Detail addCart={addCart} />}
-              />
+              <Route path="/:id" element={<Detail addCart={addCart} />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

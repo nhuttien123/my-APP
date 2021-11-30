@@ -14,7 +14,7 @@ function ProductList({ data, addCart }) {
             style={{ width: "100%" }}
             hoverable
             cover={
-              <Link to={"/product/" + data.id}>
+              <Link to={"/" + data.id}>
                 <img
                   alt="example"
                   src={data.images}
