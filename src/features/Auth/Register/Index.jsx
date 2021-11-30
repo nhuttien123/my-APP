@@ -113,7 +113,7 @@ function Register() {
                 Submit
               </Button>
             )}
-            <Link to="/" style={{ marginLeft: "1rem" }}>
+            <Link to="/login" style={{ marginLeft: "1rem" }}>
               back
             </Link>
           </Form.Item>

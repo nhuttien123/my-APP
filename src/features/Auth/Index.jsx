@@ -7,7 +7,7 @@ function HomePage() {
     <div style={{ textAlign: "center", marginTop: "10rem" }}>
       <h1 style={{ fontSize: "4rem" }}>Welcome !!!</h1>
       <Link
-        to="/my-app/login"
+        to="/login"
         style={{
           display: "flex",
           justifyContent: "center",
