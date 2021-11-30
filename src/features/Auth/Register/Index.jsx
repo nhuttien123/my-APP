@@ -17,7 +17,7 @@ function Register() {
       if (typeof response === "object") {
         toast.success("Register success !");
         setTimeout(() => {
-          history("/my-app/");
+          history("/my-app/login");
         }, 1500);
       } else if (typeof response === "string") {
         toast.error("Username already exist !");
@@ -113,7 +113,7 @@ function Register() {
                 Submit
               </Button>
             )}
-            <Link to="/login" style={{ marginLeft: "1rem" }}>
+            <Link to="/my-app/login" style={{ marginLeft: "1rem" }}>
               back
             </Link>
           </Form.Item>
