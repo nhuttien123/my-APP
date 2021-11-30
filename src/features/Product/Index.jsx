@@ -78,7 +78,7 @@ function ProductSite({ addCart }) {
         Sort: sortParam,
       });
     } else {
-      history(pathName);
+      history("");
       setKey({
         Page: 1,
         Key: "",
