@@ -12,7 +12,7 @@ function HeaderComponent({ count }) {
   const logout = () => {
     localStorage.removeItem("accessKey");
     sessionStorage.removeItem("cartItem");
-    window.location.replace("/my-app");
+    window.location.replace("/");
   };
   const menu = (
     <Menu>
@@ -28,13 +28,13 @@ function HeaderComponent({ count }) {
     <Header style={{ zIndex: 1, width: "100%" }}>
       <Menu theme="dark" mode="horizontal">
         <Menu.Item key="1" style={{ fontSize: "1.1rem" }}>
-          <Link to={"/my-app/"}>Home</Link>
+          <Link to={"/"}>Home</Link>
         </Menu.Item>
         <Menu.Item
           key="2"
           icon={<ShoppingCartOutlined style={{ fontSize: "1.1rem" }} />}
         >
-          <Link to={"/my-app/cart"}>
+          <Link to={"/cart"}>
             <Badge count={count}>
               <span style={{ color: "white" }}>Cart</span>
             </Badge>

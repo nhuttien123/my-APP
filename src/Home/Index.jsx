@@ -113,9 +113,9 @@ function Home(props) {
       <>
         <ToastContainer position={"top-center"} />
         <Routes>
-          <Route path="/my-app/" element={<HomePage />} />
-          <Route path="/my-app/login" element={<Login />} />
-          <Route path="/my-app/register" element={<Register />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </>
@@ -134,12 +134,9 @@ function Home(props) {
             style={{ padding: 24, minHeight: 380 }}
           >
             <Routes>
+              <Route path="/" element={<ProductSite addCart={addCart} />} />
               <Route
-                path="/my-app/"
-                element={<ProductSite addCart={addCart} />}
-              />
-              <Route
-                path="/my-app/cart"
+                path="/cart"
                 element={
                   <CartSite
                     removeCartItem={removeCartItem}
