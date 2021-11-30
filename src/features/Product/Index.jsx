@@ -72,7 +72,7 @@ function ProductSite({ addCart }) {
 
   const cancelFilter = () => {
     if (sortParam) {
-      history(`${pathName}?order=${sortParam}`);
+      history(`?order=${sortParam}`);
       setKey({
         Page: 1,
         Sort: sortParam,
