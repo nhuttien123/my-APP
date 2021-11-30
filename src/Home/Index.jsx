@@ -88,7 +88,6 @@ function Home(props) {
     (cartItem || []).map((e, i) => {
       if (e.idItem == id) {
         e.quantity--;
-
         sessionStorage.setItem("cartItem", JSON.stringify(cartItem));
         getTotalCount();
       }
@@ -124,6 +123,7 @@ function Home(props) {
   } else {
     return (
       <div>
+        <ToastContainer position={"top-center"} />
         {url[1] === "login" ? null : <HeaderComponent count={count} />}
         <Content
           className="site-layout"
