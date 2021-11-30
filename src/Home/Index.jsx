@@ -113,9 +113,9 @@ function Home(props) {
       <>
         <ToastContainer position={"top-center"} />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/my-app/" element={<HomePage />} />
+          <Route path="/my-app/login" element={<Login />} />
+          <Route path="/my-app/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </>
@@ -134,9 +134,12 @@ function Home(props) {
             style={{ padding: 24, minHeight: 380 }}
           >
             <Routes>
-              <Route path="/" element={<ProductSite addCart={addCart} />} />
               <Route
-                path="/cart"
+                path="/my-app/"
+                element={<ProductSite addCart={addCart} />}
+              />
+              <Route
+                path="/my-app/cart"
                 element={
                   <CartSite
                     removeCartItem={removeCartItem}
@@ -146,7 +149,10 @@ function Home(props) {
                   />
                 }
               />
-              <Route path="/:id" element={<Detail addCart={addCart} />} />
+              <Route
+                path="/product/:id"
+                element={<Detail addCart={addCart} />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

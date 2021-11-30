@@ -1,12 +1,12 @@
 import Home from "./Home/Index.jsx";
 
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <div className="App">{<Home></Home>}</div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

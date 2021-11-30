@@ -89,7 +89,7 @@ function Login() {
                 Submit
               </Button>
             )}
-            <Link to="/register" style={{ marginLeft: "1rem" }}>
+            <Link to="/my-app/register" style={{ marginLeft: "1rem" }}>
               Register
             </Link>
           </Form.Item>
