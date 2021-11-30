@@ -18,7 +18,7 @@ function Login() {
         localStorage.setItem("accessKey", [sucess.useName]);
         toast.success("Login success !");
         setTimeout(() => {
-          window.location.replace("/my-app/");
+          window.location.replace("/#/");
         }, 1500);
       } else if (status === "wrong-pass") {
         toast.error("Password incorrect");
