@@ -2,7 +2,7 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProduct } from "../../redux/Slice/Product";
+import { getProduct } from "../../redux/slice/Product";
 import { Row, Spin, Button, Col, Radio } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import ProductList from "./productList";

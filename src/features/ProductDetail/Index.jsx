@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getProductDetail } from "../../redux/Slice/ProductDetail";
+import { getProductDetail } from "../../redux/slice/ProductDetail";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Spin, Button } from "antd";
 

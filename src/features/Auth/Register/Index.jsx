@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Form, Input, Button, Row, Col } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createUser } from "../../../redux/Slice/Register";
+import { createUser } from "../../../redux/slice/Register";
 import { toast } from "react-toastify";
 import { unwrapResult } from "@reduxjs/toolkit";
 function Register() {

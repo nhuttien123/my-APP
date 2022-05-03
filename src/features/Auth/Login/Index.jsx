@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Form, Input, Button, Checkbox, Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../../redux/Slice/Login";
+import { getUser } from "../../../redux/slice/Login";
 import { toast } from "react-toastify";
 import { unwrapResult } from "@reduxjs/toolkit";
 function Login() {
@@ -12,10 +12,11 @@ function Login() {
   const status = data.status;
 
   useEffect(() => {
+    console.log(data.response);
     if (status) {
       if (status === "success") {
         const sucess = data.response;
-        localStorage.setItem("accessKey", [sucess.useName]);
+        localStorage.setItem("accessKey", JSON.stringify(sucess.userName));
         toast.success("Login success !");
         setTimeout(() => {
           window.location.replace("/my-app/");
